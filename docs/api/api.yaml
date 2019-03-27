@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+  title: Purchase service API
+  version: "0.0.1"
+paths:
+  /purchases:
+    post:
+      description: Creates a new purchase.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Purchase'
+      responses:
+        '201':
+          description: Purchase created succesfully.
+    get:
+      description: Retrieve all purchases.
+      responses:
+        '200':
+          description: Purchases retrieved succesfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseList'
+    delete:
+      description: Delete all purchases.
+      responses:
+        '204':
+          description: All purchases deleted succesfully.
+  /namespace/X/purchases:
+    get:
+      description: Retrieve all purchases.
+      responses:
+        '200':
+          description: Purchases retrieved succesfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseList'
+        '400':
+          description: Bad request.
+        '500':
+          description: Internal server error.
+    delete:
+      description: Delete all purchases in namespace X.
+      responses:
+        '204':
+          description: All purchases in namespace X deleted succesfully.
+        '400':
+          description: Bad request.
+        '500':
+          description: Internal server error.
+components:
+  schemas:
+    Purchase:
+      type: object
+      properties:
+        namespace:
+          type: string
+          example: xfNameSpace
+        total:
+          type: number
+          example: 1234.56
+        postalCode:
+          type: string
+          example: BN44
+        town:
+          type: string
+          example: Brighton
+      required:
+        - id
+        - namespace
+        - total
+        - postalCode
+        - town
+    PurchaseList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Purchase'
