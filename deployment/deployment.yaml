@@ -27,7 +27,7 @@ spec:
         sidecar.istio.io/inject: "true"
     spec:
       containers:
-      - image: kenlomax/purchaseswebservice:latest
+      - image: tomaszmi/hackaton-kyma-spartacus-microservice
         imagePullPolicy: Always
         name: purchaseswebservice
         ports:
