@@ -8,8 +8,8 @@ metadata:
     auth.istio.io/8017: NONE
 spec:
   ports:
-  - name: http
-    port: 8017
+    - name: http
+      port: 8017
   selector:
     example: purchaseswebservice
 ---
@@ -27,9 +27,22 @@ spec:
         sidecar.istio.io/inject: "true"
     spec:
       containers:
-      - image: tomaszmi/hackaton-kyma-spartacus-microservice
-        imagePullPolicy: Always
-        name: purchaseswebservice
-        ports:
-        - name: http
-          containerPort: 8017
+        - image: tomaszmi/hackaton-kyma-spartacus-microservice
+          imagePullPolicy: Always
+          name: purchaseswebservice
+          ports:
+            - name: http
+              containerPort: 8017
+          env:
+            - name: MYSQL_HOST
+              value: mysql
+            - name: MYSQL_USER
+              value: user
+            - name: MYSQL_DB
+              value: micro
+            - name: MYSQL_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: mysql
+                  key: mysql-password
+
