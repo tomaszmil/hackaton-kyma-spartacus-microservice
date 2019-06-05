@@ -14,7 +14,6 @@ public class OrderModel {
 
     private String userId;
     private String orderId;
-    inte
 
     public OrderModel(final String userId, final String orderId) {
         this.userId = userId;
