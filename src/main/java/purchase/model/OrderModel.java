@@ -13,11 +13,11 @@ public class OrderModel {
     private Long id;
 
     private String userId;
-    private String orderId;
+    private String productCode;
+    private String productName;
+    private String reviewId;
 
-    public OrderModel(final String userId, final String orderId) {
-        this.userId = userId;
-        this.orderId = orderId;
+    public OrderModel() {
     }
 
     public Long getId() {
@@ -36,11 +36,27 @@ public class OrderModel {
         this.userId = userId;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public String getProductCode() {
+        return productCode;
     }
 
-    public void setOrderId(final String orderId) {
-        this.orderId = orderId;
+    public void setProductCode(final String productCode) {
+        this.productCode = productCode;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(final String productName) {
+        this.productName = productName;
+    }
+
+    public String getReviewId() {
+        return reviewId;
+    }
+
+    public void setReviewId(final String reviewId) {
+        this.reviewId = reviewId;
     }
 }

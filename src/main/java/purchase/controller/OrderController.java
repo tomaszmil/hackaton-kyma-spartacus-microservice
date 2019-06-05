@@ -1,25 +1,45 @@
 package purchase.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import purchase.model.OrderModel;
+import purchase.data.OrderData;
+import purchase.data.ReviewData;
 import purchase.service.OrderService;
 
-@RestController("/order")
+import java.util.List;
+
+@RestController
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
 
-    @RequestMapping("add/{userId}/{orderId}")
-    public void add(@PathVariable("userId") final String userId, @PathVariable("orderId") final String orderId) {
-        orderService.createOrder(orderId, userId);
+    @GetMapping("/{userId}/reviews")
+    public ResponseEntity<?> getProductBoughtByUser(@PathVariable final String userId) {
+        return ResponseEntity.ok().body(orderService.getProductBoughtByUser(userId));
     }
 
-    @RequestMapping("/all")
-    public Iterable<OrderModel> getAll() {
-        return orderService.findAll();
+    @PostMapping("/add/order")
+    public ResponseEntity<?> addUserOrder(@RequestBody final OrderData orderData) {
+        orderService.addUserOrder(orderData);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/add/review")
+    public ResponseEntity<?> addUserReviewIdToProduct(@RequestBody final ReviewData reviewData) {
+        orderService.addUserReviewIdToProduct(reviewData);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/verify/review")
+    public ResponseEntity<?> verifyReviews(@RequestBody final List<String> reviewIds) {
+        return ResponseEntity.ok().body(orderService.verifyReviews(reviewIds));
     }
 }
